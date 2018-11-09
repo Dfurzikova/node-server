@@ -1,9 +1,19 @@
-/// <reference path="get-data.d.ts" />
 import { Request } from 'express'
 
 const pagination = require('./pagination')
 const types = ['info', 'critical'];
 const events = require('./events');
+
+interface DataEvents{
+    type: string;
+    title: string;
+    source: string;
+    time: string;
+    description: string;
+    icon: string;
+    size: string;
+    data?: { [key: string]: any } 
+}
 
 module.exports = function (req: Request) {
     const type = req.query.type;
@@ -11,7 +21,7 @@ module.exports = function (req: Request) {
     const result = {
         events: []
     };
-    let qTypes:string[];
+    let qTypes: string[];
 
     if (type) {
         qTypes = type.split(':');
