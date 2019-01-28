@@ -1,14 +1,27 @@
+import { Request } from 'express'
+
 const pagination = require('./pagination')
 const types = ['info', 'critical'];
 const events = require('./events');
 
-module.exports = function (req) {
+interface DataEvents{
+    type: string;
+    title: string;
+    source: string;
+    time: string;
+    description: string;
+    icon: string;
+    size: string;
+    data?: { [key: string]: any } 
+}
+
+module.exports = function (req: Request) {
     const type = req.query.type;
     const eventsArr = events.events;
     const result = {
         events: []
     };
-    let qTypes;
+    let qTypes: string[];
 
     if (type) {
         qTypes = type.split(':');
@@ -29,7 +42,8 @@ module.exports = function (req) {
         }
     }
 
-    result.events = eventsArr.filter((event) => qTypes.includes(event.type));
+    result.events = eventsArr.filter((event: DataEvents) =>  qTypes.includes(event.type));
+
     result.events = pagination(result.events, req);
 
     return {

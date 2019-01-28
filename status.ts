@@ -3,7 +3,7 @@ const sec = 1000;
 const min = sec * 60;
 const hour = min * 60;
 
-function zeroNum(val){
+function zeroNum(val:number){
     return val < 10 ? '0' + val : val;
 }
     

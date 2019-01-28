@@ -1,4 +1,6 @@
-module.exports = function (eventsList, req) {
+import { Request } from 'express'
+
+module.exports = function (eventsList:[], req:Request) {
     const cloneEvents = [].concat(eventsList);
     const query = req.query;
 
@@ -14,4 +16,4 @@ module.exports = function (eventsList, req) {
     }
 
     return cloneEvents;
-};
+}
